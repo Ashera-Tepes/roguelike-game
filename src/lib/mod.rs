@@ -10,6 +10,9 @@ pub use map::*;
 pub mod player;
 pub use player::*;
 
+pub mod rect;
+pub use rect::*;
+
 //----------------------------------------------------
 // World State Section
 
