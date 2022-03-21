@@ -13,6 +13,9 @@ pub use player::*;
 pub mod rect;
 pub use rect::*;
 
+pub mod visibility_system;
+pub use visibility_system::*;
+
 //----------------------------------------------------
 // World State Section
 
@@ -39,6 +42,8 @@ impl GameState for State {
 
 impl State {
     fn run_system(&mut self) {
+        let mut vis = VisibilitySystem {};
+        vis.run_now(&self.ecs);
         self.ecs.maintain();
     }
 }
