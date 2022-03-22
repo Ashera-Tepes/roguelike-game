@@ -52,6 +52,10 @@ impl Map {
         }
     }
 
+    pub fn is_visible(&self, x: i32, y: i32) -> bool {
+        self.visible_tiles[self.xy_idx(x, y)]
+    }
+
     pub fn new_map_rooms_and_corridors() -> Map {
         let mut map = Map {
             tiles: vec![TileType::Wall; 80 * 50],

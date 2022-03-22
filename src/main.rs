@@ -1,4 +1,4 @@
-use rltk::RGB;
+use rltk::{RandomNumberGenerator, RGB};
 use specs::prelude::*;
 
 use roguelike_game::*;
@@ -12,9 +12,37 @@ fn main() -> rltk::BError {
     gs.ecs.register::<Renderable>();
     gs.ecs.register::<Player>();
     gs.ecs.register::<Viewshed>();
+    gs.ecs.register::<Monster>();
 
     let map = Map::new_map_rooms_and_corridors();
     let (player_x, player_y) = map.rooms[0].centre();
+
+    let mut rng = RandomNumberGenerator::new();
+
+    for room in map.rooms.iter().skip(1) {
+        let (x, y) = room.centre();
+        let gylph = match rng.roll_dice(1, 2) {
+            1 => rltk::to_cp437('g'),
+            _ => rltk::to_cp437('o'),
+        };
+
+        gs.ecs
+            .create_entity()
+            .with(Position { x, y })
+            .with(Renderable {
+                gylph,
+                fg: RGB::named(rltk::RED),
+                bg: RGB::named(rltk::BLACK),
+            })
+            .with(Viewshed {
+                visible_tiles: Vec::new(),
+                range: 8,
+                dirty: true,
+            })
+            .with(Monster{})
+            .build();
+    }
+
     gs.ecs.insert(map);
 
     gs.ecs
@@ -35,5 +63,6 @@ fn main() -> rltk::BError {
             dirty: true,
         })
         .build();
+
     rltk::main_loop(context, gs)
 }
