@@ -3,15 +3,26 @@ use specs::prelude::*;
 
 use crate::{draw_map, player_input, Map, MonsterAI, Position, Renderable, VisibilitySystem};
 
+#[derive(PartialEq, Copy, Clone)]
+pub enum RunState {
+    Paused,
+    Running,
+}
+
 pub struct State {
     pub ecs: World,
+    pub runstate: RunState,
 }
 impl GameState for State {
     fn tick(&mut self, ctx: &mut Rltk) {
         ctx.cls();
 
-        player_input(self, ctx);
-        self.run_system();
+        if self.runstate == RunState::Running {
+            self.run_system();
+            self.runstate = RunState::Paused;
+        } else {
+            self.runstate = player_input(self, ctx);
+        }
 
         draw_map(&self.ecs, ctx);
 

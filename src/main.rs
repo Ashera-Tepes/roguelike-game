@@ -6,7 +6,10 @@ use roguelike_game::*;
 fn main() -> rltk::BError {
     use rltk::RltkBuilder;
     let context = RltkBuilder::simple80x50().with_title("Roguelike").build()?;
-    let mut gs = State { ecs: World::new() };
+    let mut gs = State {
+        ecs: World::new(),
+        runstate: RunState::Running,
+    };
 
     gs.ecs.register::<Position>();
     gs.ecs.register::<Renderable>();
