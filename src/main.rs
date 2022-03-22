@@ -39,7 +39,7 @@ fn main() -> rltk::BError {
                 range: 8,
                 dirty: true,
             })
-            .with(Monster{})
+            .with(Monster {})
             .build();
     }
 

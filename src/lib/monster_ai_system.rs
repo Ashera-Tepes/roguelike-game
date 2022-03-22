@@ -1,5 +1,6 @@
-use crate::*;
-use rltk::{console};
+use crate::{Monster, Position, Viewshed};
+use rltk::console;
+use specs::prelude::*;
 
 pub struct MonsterAI {}
 

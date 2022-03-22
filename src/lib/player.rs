@@ -1,8 +1,8 @@
-use rltk::VirtualKeyCode::*;
+use rltk::{Rltk, VirtualKeyCode::*};
 use specs::prelude::*;
 use std::cmp::{max, min};
 
-use crate::*;
+use crate::{Map, Player, Position, State, TileType, Viewshed};
 
 pub fn try_move_player(delta_x: i32, delta_y: i32, ecs: &mut World) {
     let mut positions = ecs.write_storage::<Position>();

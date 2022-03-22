@@ -1,7 +1,7 @@
 use rltk::{Algorithm2D, BaseMap, Point, RandomNumberGenerator, Rltk, RGB};
 use std::cmp::{max, min};
 
-use crate::*;
+use crate::{Rect, World};
 
 #[derive(PartialEq, Copy, Clone)]
 pub enum TileType {
